@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState('#06090C');
-  const [section, setSection] = useState(0);
+  const [section] = useState(0);
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
