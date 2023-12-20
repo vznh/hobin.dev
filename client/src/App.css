@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* App.css */
+:root {
+  --primary-color: #06090C;
+  --secondary-color: #111A37;
+  --text-color: #ffffff;
+  --accent-color: #372E65;
+  --main-font: 'Inter', sans-serif;
+}
+
+.wrapper {
+  font-family: var(--main-font);
+  color: var(--text-color);
+}
+
