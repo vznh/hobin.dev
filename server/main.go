@@ -21,6 +21,10 @@ func main() {
 	router := gin.Default()
 	router.Use(corsMiddleware())
 
+	buildHandler := http.FileServer(http.Dir("./client/build"))
+	router.GET("/", gin.WrapH(buildHandler))
+	router.NoRoute(gin.WrapH(buildHandler))
+
 	// openai implementation
 	client := openai.NewClient(hidden.OPENAI_API_KEY)
 

@@ -62,6 +62,7 @@ const TerminalSection = () => {
     color: 'white',
     padding: '2rem',
     margin: '0 auto',
+    marginTop: '50vh',
 
     display: 'flex',
     flexDirection: 'column',
@@ -112,10 +113,10 @@ const TerminalSection = () => {
             setShowIcons(true);
             break;
         case 'what have i made so far?':
-            setResultText('a few things..');
+            setResultText('this is kinda under construction... it\'ll come though. pinky promise.');
             break;
         case 'notable things to know about me':
-            setResultText('i made this website');
+            setResultText('for now, you get one piece of information. i made this website, which was built using react, bunjs, golang, aws, and netlify');
             break;
         default: 
             break;

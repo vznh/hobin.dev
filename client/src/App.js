@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ConstantArrow from './components/ConstantArrow';
 import TerminalSection from './components/TerminalSection';
 import Typewriter from './components/Typewriter';
-import NavBar from './components/NavBar';
+import SearchBar from './components/SearchBar';
 
 import './App.css';
 
@@ -16,7 +16,7 @@ function App() {
     const windowHeight = window.innerHeight;
     const sectionIndex = Math.floor(scrollPosition / windowHeight);
 
-    const sectionColors = ['#06090C', '#16161d', '#343D46']
+    const sectionColors = ['#06090C', '#16161d', '#020202']
     setBackgroundColor(sectionColors[sectionIndex] || sectionColors[sectionColors.length - 1]);
   };
 
@@ -55,15 +55,7 @@ function App() {
         alignItems: 'center',
         height: '100vh',
       }}>
-        <div style={{
-          width: '80%',
-          height: '80%',
-          border: '1px solid #ddd',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        </div>
+        <p>under construction dont look pls</p>
       </section>
 
       <section style={{
@@ -72,7 +64,6 @@ function App() {
         alignItems: 'center',
         height: '10vh',
       }}>
-        <NavBar />
       </section>
       </>
       )}

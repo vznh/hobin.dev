@@ -10,7 +10,7 @@ const SearchBar = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch('http://localhost:8080/api/question', { 
+        const response = await fetch('/api/question', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,11 +36,11 @@ const SearchBar = () => {
     }, [answer]);
     
     return (
-        <>
-            {}
-            <form onSubmit={handleSubmit}>
+        <div>
+            <form onSubmit={handleSubmit} sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                 <Autocomplete
                     freeSolo
+                    sx={{ flex: 1, marginRight: 1 }}
                     onInputChange={(event, newInputValue) => {
                         setQuestion(newInputValue);
                     }}
@@ -51,19 +51,19 @@ const SearchBar = () => {
                         "..where do you work?",
                         "..what coffee do you like?",
                         "..what do you like to do in your free time?",
-                        "..what archetype are you?",
+                        "..what mbti are you?",
                         "..anything to your imagination!"
                     ]}
                     getOptionDisabled={(option) => option === "..anything to your imagination!"}
-                    renderInput={(params) => <TextField {...params} label="talk 2 me" />}
+                    renderInput={(params) => <TextField {...params} label="talk 2 me" fullWidth />}
                     />
-                <button type="submit">
+                <button type="submit" color="primary" variant="contained">
                     <SendIcon />
                 </button>
             </form>
             <p>{currentOutput}</p>
             
-        </>
+        </div>
     )
 }
 
