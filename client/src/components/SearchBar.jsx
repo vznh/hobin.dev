@@ -21,12 +21,19 @@ const SearchBar = () => {
         setAnswer(data.answer);
     };
 
-    const typeOutAnswer = (index) => {
+    const typeOutAnswer = useCallback((index) => {
         if (index < answer.length) {
             setCurrentOutput(answer.substring(0, index + 1));
-            setTimeout(() => typeOutAnswer(index + 1), 15); // adjust typing speed here
+            setTimeout(() => typeOutAnswer(index + 1), 15);
         }
-    };
+    }, [answer]); 
+
+    useEffect(() => {
+        setCurrentOutput(''); 
+        if (answer) {
+            typeOutAnswer(0);
+        }
+    }, [answer, typeOutAnswer]);
 
     useEffect(() => {
         setCurrentOutput(''); 

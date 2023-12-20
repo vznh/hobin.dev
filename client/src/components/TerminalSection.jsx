@@ -41,8 +41,6 @@ const TerminalSection = () => {
     margin: '0 10px', // Adjust margins for spacing
     transform: index % 2 === 0 ? 'translateY(20px)' : 'translateY(40px)', // Adjust for wavy effect
     animation: `fadeIn 1s ease-in-out`,
-    transform: index % 2 === 0 ? 'translateY(20px)' : 'translateY(40px)' // Adjust for wavy effect
-  
   });
   
 

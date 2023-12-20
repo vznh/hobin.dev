@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import ConstantArrow from './components/ConstantArrow';
 import TerminalSection from './components/TerminalSection';
 import Typewriter from './components/Typewriter';
-import SearchBar from './components/SearchBar';
 
 import './App.css';
 
 function App() {
-  const [showImage, setShowImage] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('#06090C');
   const [section, setSection] = useState(0);
 
@@ -26,9 +24,9 @@ function App() {
   }, []);
 
   // TODO: later
-  const handleEasterEgg = () => {
+  /*const handleEasterEgg = () => {
     setShowImage();
-  }
+  }*/
 
   return (
     <div className="wrapper" style={{backgroundColor: backgroundColor, transition: 'background-color 2.0s ease'}}>
