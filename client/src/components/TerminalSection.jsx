@@ -9,40 +9,117 @@ const TerminalSection = () => {
   const [blink, setBlink] = useState(true);
   const [resultText, setResultText] = useState('');
   const [showIcons, setShowIcons] = useState(false);
+  const [showProjects, setShowProjects] = useState(false);
 
   const techStack = [
-    { icon: <FontAwesomeIcon icon={faReact}size="10x" /> },
-    { icon: <FontAwesomeIcon icon={faGolang} size="10x" /> },   
-    { icon: <FontAwesomeIcon icon={faAws} size="10x" /> },
-    { icon: <FontAwesomeIcon icon={faDocker} size="10x" /> },
+    { icon: (size) => <FontAwesomeIcon icon={faReact} size={size} /> },
+    { icon: (size) => <FontAwesomeIcon icon={faGolang} size={size} /> },   
+    { icon: (size) => <FontAwesomeIcon icon={faAws} size={size} /> },
+    { icon: (size) => <FontAwesomeIcon icon={faDocker} size={size} /> },
   ];
 
+  const projects = [
+    {
+      icon: faReact, 
+      name: 'fitGPT',
+      company: '',
+      description: 'This is a description of Project 1.',
+      technologies: 'React, Redux, Node.js',
+    },
+    {
+      icon: faReact, 
+      name: 'Project 2',
+      company: 'Company A',
+      description: 'This is a description of Project 1.',
+      technologies: 'React, Redux, Node.js',
+    },
+    {
+      icon: faReact, 
+      name: 'Project 3',
+      company: 'Company A',
+      description: 'This is a description of Project 1.',
+      technologies: 'React, Redux, Node.js',
+    },
+    {
+      icon: faReact, 
+      name: 'Project 4',
+      company: 'Company A',
+      description: 'This is a description of Project 1.',
+      technologies: 'React, Redux, Node.js',
+    },
+  ]
+
+  const ProjectDisplay = ({ project }) => {
+    const projectStyle = {
+      backgroundColor: '#000000',
+      color: '#E5E4E2',
+      padding: '20px',
+      margin: '10px',
+      width: 'calc(50% - 20px)', // 2 per row with space
+      boxSizing: 'border-box',
+      fontFamily: 'monospace',
+      borderRadius: '5px',
+      boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+    };
+  
+    const projectNameStyle = {
+      fontWeight: 'bold',
+      fontSize: '1.2em',
+      color: '#FAF9F6', // accent color for project name
+    };
+  
+    const projectDescriptionStyle = {
+      marginTop: '10px',
+    };
+  
+    const techUsedStyle = {
+      marginTop: '10px',
+      fontWeight: 'bold',
+      textDecoration: 'underline',
+    };
+  
+    return (
+      <div style={projectStyle}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <FontAwesomeIcon icon={project.icon} size="2x" />
+          <div>
+            <span style={projectNameStyle}>{project.name}</span>
+            <span style={{ marginLeft: '5px', fontSize: '0.8em', fontWeight: 'lighter' }}>
+              {project.company}
+            </span>
+          </div>
+        </div>
+        <p style={projectDescriptionStyle}>{project.description}</p>
+        <p style={techUsedStyle}>{project.technologies}</p>
+      </div>
+    );
+  };
+  
   const containerStyle = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    width: '80%', // Adjust as needed
-    margin: '20px auto'
+    width: '80%', // Adjusted for better responsiveness
+    margin: '20px auto',
+    flexWrap: 'wrap', // Allows icons to wrap on smaller screens
   };
   
   const fadeInAnimation = `@keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }`;
-  
 
   const iconStyle = index => ({
-    display: 'inline-flex',
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
     color: 'white',
-    margin: '0 10px', // Adjust margins for spacing
-    transform: index % 2 === 0 ? 'translateY(20px)' : 'translateY(40px)', // Adjust for wavy effect
-    animation: `fadeIn 1s ease-in-out`,
+    margin: '0 10px', 
   });
-  
+
+  const iconSize = window.innerWidth < 600 ? '5x' : '10x'; // Adjust icon size based on screen width
 
   const wiggleAnimation = `@keyframes wiggle {
     0%, 100% { transform: rotate(-5deg); }
@@ -53,7 +130,7 @@ const TerminalSection = () => {
     animation: 'wiggle 0.5s ease-in-out infinite'
   };
   
-  // Inline CSS for the terminal
+  // * inline CSS for the terminal
   const terminalStyle = {
     height: '100vh',
     width: '80vw',
@@ -67,7 +144,7 @@ const TerminalSection = () => {
     justifyContent: 'flex-start',
   };
 
-  // Inline CSS for buttons
+  // * inline CSS for buttons
   const buttonStyle = {
     textAlign: 'center',
     color: 'white',
@@ -82,13 +159,13 @@ const TerminalSection = () => {
     flexShrink: 0,
   };
 
-  // Hover style for buttons
+  // * hover style for buttons
   const hoverStyle = {
     boxShadow: '0 0 15px rgba(255, 255, 255, 0.9)',
     transition: 'boxShadow 100ms ease-out',
   };
 
-  // Inline CSS for command text
+  // * inline CSS for command text
   const commandTextStyle = {
     fontSize: '1rem',
     fontFamily: 'monospace',
@@ -98,7 +175,8 @@ const TerminalSection = () => {
     marginBottom: '16px',
   };
 
-  // Function to handle option clicks
+
+  // * funct to handle option clicks
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setSubIndex(0);
@@ -107,13 +185,36 @@ const TerminalSection = () => {
 
     switch (option) {
         case 'my tech stack?':
-            setResultText("there wasn't a nextjs icon.. pretend its there for me");
+            setResultText("i use these technologies for my personal projects the most!");
             setShowIcons(true);
+            setShowProjects(false);
             break;
         case 'what have i made so far?':
             setResultText('this is kinda under construction... it\'ll come though. pinky promise.');
+            /*
+            * research:
+            * cmu: ml pattern-based recognition using a convolutional neural network - python, tensorflow ; helped detect patterns within neural signals to better understand and interpret the generalization of thinking processes
+            * ucsc: using generative image modeling to generate images based off of user-generated prompts - python, tensorflow, pytorch : all from inspiration from DALL-E
+            * 
+            * hackathon:
+            * inventree - reactjs, tailwindcss, python, mongodb
+            * lovelang - reactjs, tailwindcss, python (for AI/ML), NodeJS for reg backend, dynamodb (finalist)
+            * skincare.io - nextjs, react, python (for AI/ML), node for backend, dynamodb
+            * slugmaps - react native, typescript, aws, docker
+            * 
+            * personal:
+            * spotify jukebox - rpi gpio, python, linux
+            * cmore - nodejs
+            * littlesaigonbeautysalon.com - typescript, react, go (for microservices)
+            * hobin.dev - this portfolio: react, go, aws, netlify
+            * sunshine - js, python, twilio
+            * fitgpt - react, python, mongodb
+            * skimmer - python, rpigpio ; this is kinda illegal!
+            */
+            setShowProjects(true);
+            setShowIcons(false);
             break;
-        case 'notable things to know about me':
+        case 'short-term/long-term goals':
             setResultText('for now, you get one piece of information. i made this website, which was built using react, bunjs, golang, aws, and netlify');
             break;
         default: 
@@ -121,7 +222,10 @@ const TerminalSection = () => {
     }
   };
 
-  // Typewriter effect logic for the selected option
+  /* 
+  * typewriter effect 
+  * by jason son
+  */
   useEffect(() => {
     if (selectedOption && subIndex < selectedOption.length + 1) {
       const timeout = setTimeout(() => {
@@ -132,7 +236,6 @@ const TerminalSection = () => {
     }
   }, [subIndex, selectedOption]);
 
-  // Typewriter effect logic for the result text
   useEffect(() => {
     if (resultText && subIndexResult < resultText.length + 1) {
       const timeout = setTimeout(() => {
@@ -143,7 +246,7 @@ const TerminalSection = () => {
     }
   }, [subIndexResult, resultText]);
 
-  // Blinking cursor effect
+  // * blinking cursor effect
   useEffect(() => {
     const interval = setInterval(() => {
       setBlink(!blink);
@@ -163,7 +266,7 @@ const TerminalSection = () => {
         <span>for-the-recruiters</span>
       </div>
       <div className="flex justify-between" style={{ gap: '16px' }}>
-        {['my tech stack?', 'what have i made so far?', 'notable things to know about me'].map((option) => (
+        {['my tech stack?', 'what have i made so far?', 'short-term/long-term goals'].map((option) => (
           <button
             key={option}
             style={buttonStyle}
@@ -191,20 +294,27 @@ const TerminalSection = () => {
           </p>
         )}
       </div>
-      {showIcons && (
-        <div style={containerStyle}>
-          {techStack.map((item, index) => (
-            <div
-              key={index}
-              style={iconStyle(index)}
-              onMouseOver={(e) => e.currentTarget.firstChild.style.animation = iconHoverStyle.animation}
-              onMouseOut={(e) => e.currentTarget.firstChild.style.animation = ''}
-            >
-              {item.icon}
-            </div>
-          ))}
-        </div>
-      )}
+        {showIcons && (
+          <div style={containerStyle}>
+            {techStack.map((item, index) => (
+              <div
+                key={index}
+                style={iconStyle(index)}
+                onMouseOver={(e) => e.currentTarget.firstChild.style.animation = iconHoverStyle.animation}
+                onMouseOut={(e) => e.currentTarget.firstChild.style.animation = ''}
+              >
+                {item.icon(iconSize)}   
+              </div>
+            ))}
+          </div>
+        )}
+        {showProjects && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', width: '80%', margin: '0 auto' }}>
+            {projects.map((project, index) => (
+              <ProjectDisplay key={index} project={project} />
+            ))}
+          </div>
+        )}
     </section>
   );
   
