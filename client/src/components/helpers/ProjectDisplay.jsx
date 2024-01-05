@@ -1,6 +1,5 @@
 // ProjectDisplay component 
 const ProjectDisplay = ({ project }) => {
-
     const projectDisplayStyle = {
       display: 'grid',
       gridTemplateColumns: isMobileView ? '1fr' : 'auto 1fr', // Icon column only appears if not in mobile view
