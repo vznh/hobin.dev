@@ -114,7 +114,7 @@ const TerminalSection = () => {
             setResultText('this is kinda under construction... it\'ll come though. pinky promise.');
             break;
         case 'notable things to know about me':
-            setResultText('for now, you get one piece of information. i made this website, which was built using react, bunjs, golang, aws, and netlify');
+            setResultText('research: @seoul national university, @uc santa cruz, @carnegie mellon university. finalist for CalHacks A.I. (June)');
             break;
         default: 
             break;
