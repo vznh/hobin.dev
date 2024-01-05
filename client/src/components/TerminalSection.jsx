@@ -10,6 +10,7 @@ const TerminalSection = () => {
   const [resultText, setResultText] = useState('');
   const [showIcons, setShowIcons] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 600);
 
   const techStack = [
     { icon: (size) => <FontAwesomeIcon icon={faReact} size={size} /> },
@@ -18,39 +19,90 @@ const TerminalSection = () => {
     { icon: (size) => <FontAwesomeIcon icon={faDocker} size={size} /> },
   ];
 
+          /*
+            * research:
+            * cmu: ml pattern-based recognition using a convolutional neural network - python, tensorflow ; helped detect patterns within neural signals to better understand and interpret the generalization of thinking processes
+            * ucsc: using generative image modeling to generate images based off of user-generated prompts - python, tensorflow, pytorch : all from inspiration from DALL-E
+            * 
+            * hackathon:
+            * inventree - reactjs, tailwindcss, python, mongodb
+            * lovelang - reactjs, tailwindcss, python (for AI/ML), NodeJS for reg backend, dynamodb (finalist)
+            * skincare.io - nextjs, react, python (for AI/ML), node for backend, dynamodb
+            * slugmaps - react native, typescript, aws, docker
+            * sunshine - js, python, twilio
+            * fitgpt - react, python, mongodb
+            * 
+            * personal:
+            * spotify jukebox - rpi gpio, python, linux
+            * cmore - nodejs
+            * littlesaigonbeautysalon.com - typescript, react, go (for microservices)
+            * hobin.dev - this portfolio: react, go, aws, netlify
+            */
   const projects = [
-    {
-      icon: faReact, 
-      name: 'fitGPT',
-      company: '',
-      description: 'This is a description of Project 1.',
-      technologies: 'React, Redux, Node.js',
-    },
-    {
-      icon: faReact, 
-      name: 'Project 2',
-      company: 'Company A',
-      description: 'This is a description of Project 1.',
-      technologies: 'React, Redux, Node.js',
-    },
-    {
-      icon: faReact, 
-      name: 'Project 3',
-      company: 'Company A',
-      description: 'This is a description of Project 1.',
-      technologies: 'React, Redux, Node.js',
-    },
-    {
-      icon: faReact, 
-      name: 'Project 4',
-      company: 'Company A',
-      description: 'This is a description of Project 1.',
-      technologies: 'React, Redux, Node.js',
-    },
+    [
+      {
+        icon: faReact, 
+        name: 'Music Wizard',
+        company: 'Jun. 2020',
+        description: 'A small mahogany box that contained a NFC reader to take in input from NFC cards; when hovered on with a NFC-card containing a certain value, it\'ll play the song associated with that card on a nearby (already connected) speaker.',
+        technologies: 'RPi GPiO (3B+), Python, Linux',
+      },
+      {
+        icon: faReact, 
+        name: 'cmore',
+        company: 'Sep. 2020',
+        description: 'A deprecated Chrome Web Store extension that converted supported files (HTML, PDF, DOCX) to conform with bionic reading standards; helping those with dyslexia read more efficiently.',
+        technologies: 'JavaScript, Python, Firebase',
+      },
+      {
+        icon: faReact,
+        name: 'hobin.dev',
+        company: 'Dec. 2023',
+        description: 'This website that you\'re looking at! The entire thing was built in ReactJS, MUI, and Golang for the serverless functions. It\'s hosted on AWS and Netlify.',
+        technologies: 'ReactJS, Golang, AWS, Netlify; MUI'
+      },
+      {
+        icon: faReact,
+        name: 'l',
+        company: 'Dec. 2023',
+        description: 'My mom\'s salon website; it was built with a "techy" vibe to it, and also has a booking/scheduling system for my mom and her coworkers to understand their schedule better; they previously worked on remembering their schedule by memory!',
+        technologies: 'React (TS), Golang, AWS, Netlify, MUI, TailwindCSS, Typeform'
+      }
+    ],
+    [
+      {
+        icon: faReact, 
+        name: 'sunshine',
+        company: 'Jan. 2021',
+        description: 'Made it for my mom; tapping on this NFC card on her nightstand will lead her to a website that triggers a SMS message that contains all of the daily essentials: weather, news (usa, vietnam, korea), and her schedule for her salon. Translated in primarily Vietnamese, then Korean if desired.',
+        technologies: 'Go, Twilio, Amazon Web Services (Lambda)',
+      },
+      {
+        icon: faReact, 
+        name: 'fitPT',
+        company: 'Jun. 2022',
+        description: 'A web app that helps those looking to get into a gym without the hassle of a personal trainer. It\'ll generate a workout plan based on the user\'s intentions, goals, current body metrics, and will track their progress over time. You can also ask it to make recipes for you based on a picture of what you have in your fridge.',
+        technologies: 'OpenAI API (GPT-4 Early Access), HuggingFace API, React, Python, MongoDB',
+      },
+    ]
   ]
 
   const ProjectDisplay = ({ project }) => {
-    const projectStyle = {
+    const truncateTextStyle = {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      WebkitLineClamp: '2',
+      WebkitBoxOrient: 'vertical',
+      lineHeight: '1.2em',  
+      maxHeight: '2.4em',   
+    };
+  
+
+    const projectDisplayStyle = {
+      display: 'grid',
+      gridTemplateColumns: isMobileView ? '1fr' : 'auto 1fr', // Icon column only appears if not in mobile view
+      gap: '10px',
       backgroundColor: '#000000',
       color: '#E5E4E2',
       padding: '20px',
@@ -61,37 +113,47 @@ const TerminalSection = () => {
       borderRadius: '5px',
       boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
     };
-  
+
     const projectNameStyle = {
       fontWeight: 'bold',
       fontSize: '1.2em',
       color: '#FAF9F6', // accent color for project name
+      whiteSpace: 'normal', // Allows the text to wrap
+      overflowWrap: 'break-word', // Breaks words to prevent overflow
     };
   
     const projectDescriptionStyle = {
-      marginTop: '10px',
+        marginTop: '10px',
+        whiteSpace: 'normal', // Allows the text to wrap
+        overflowWrap: 'break-word', // Breaks words to prevent overflow
     };
+  
   
     const techUsedStyle = {
       marginTop: '10px',
       fontWeight: 'bold',
       textDecoration: 'underline',
-    };
+      whiteSpace: 'normal', // Allows the text to wrap
+      overflowWrap: 'break-word', // Breaks words to prevent overflow
+  };
+
   
     return (
-      <div style={projectStyle}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div style={projectDisplayStyle}>
+      {!isMobileView && (
           <FontAwesomeIcon icon={project.icon} size="2x" />
+      )}
+      <div>
           <div>
-            <span style={projectNameStyle}>{project.name}</span>
-            <span style={{ marginLeft: '5px', fontSize: '0.8em', fontWeight: 'lighter' }}>
-              {project.company}
-            </span>
+              <span style={projectNameStyle}>{project.name}</span>
+              <span style={{ ...projectNameStyle, marginLeft: '5px', fontSize: '0.8em', fontWeight: 'lighter' }}>
+                  {project.company}
+              </span>
           </div>
-        </div>
-        <p style={projectDescriptionStyle}>{project.description}</p>
-        <p style={techUsedStyle}>{project.technologies}</p>
+          <p style={projectDescriptionStyle}>{project.description}</p>
+          <p style={techUsedStyle}>{project.technologies}</p>
       </div>
+  </div>
     );
   };
   
@@ -190,7 +252,6 @@ const TerminalSection = () => {
             setShowProjects(false);
             break;
         case 'what have i made so far?':
-            setResultText('this is kinda under construction... it\'ll come though. pinky promise.');
             /*
             * research:
             * cmu: ml pattern-based recognition using a convolutional neural network - python, tensorflow ; helped detect patterns within neural signals to better understand and interpret the generalization of thinking processes
@@ -211,11 +272,14 @@ const TerminalSection = () => {
             * fitgpt - react, python, mongodb
             * skimmer - python, rpigpio ; this is kinda illegal!
             */
+            setResultText('');
             setShowProjects(true);
             setShowIcons(false);
             break;
         case 'short-term/long-term goals':
             setResultText('for now, you get one piece of information. i made this website, which was built using react, bunjs, golang, aws, and netlify');
+            setShowProjects(false);
+            setShowIcons(false);
             break;
         default: 
             break;
@@ -254,6 +318,20 @@ const TerminalSection = () => {
 
     return () => clearInterval(interval);
   }, [blink]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 600);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Set initial state
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
   return (
     <section style={terminalStyle}>
@@ -310,15 +388,13 @@ const TerminalSection = () => {
         )}
         {showProjects && (
           <div style={{ display: 'flex', flexWrap: 'wrap', width: '80%', margin: '0 auto' }}>
-            {projects.map((project, index) => (
+            {projects[0].map((project, index) => (
               <ProjectDisplay key={index} project={project} />
             ))}
           </div>
         )}
     </section>
-  );
-  
-  
+  );  
 };
 
 export default TerminalSection;
