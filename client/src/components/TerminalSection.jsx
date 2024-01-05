@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReact, faAws, faDocker, faGolang } from '@fortawesome/free-brands-svg-icons';
-import ProjectDisplay from './helpers/ProjectDisplay';
 
 const TerminalSection = () => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -87,6 +86,67 @@ const TerminalSection = () => {
       },
     ]
   ]
+
+  // ProjectDisplay component 
+  const ProjectDisplay = ({ isMobileView, project }) => {
+    const projectDisplayStyle = {
+      display: 'grid',
+      gridTemplateColumns: isMobileView ? '1fr' : 'auto 1fr', // Icon column only appears if not in mobile view
+      gap: '10px',
+      backgroundColor: '#000000',
+      color: '#E5E4E2',
+      padding: '20px',
+      margin: '10px',
+      width: 'calc(50% - 20px)', // 2 per row with space
+      boxSizing: 'border-box',
+      fontFamily: 'monospace',
+      borderRadius: '5px',
+      boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+    };
+
+    const projectNameStyle = {
+      fontWeight: 'bold',
+      fontSize: '1.2em',
+      color: '#FAF9F6', // accent color for project name
+      whiteSpace: 'normal', // Allows the text to wrap
+      overflowWrap: 'break-word', // Breaks words to prevent overflow
+    };
+
+    const projectDescriptionStyle = {
+        marginTop: '10px',
+        whiteSpace: 'normal', // Allows the text to wrap
+        overflowWrap: 'break-word', // Breaks words to prevent overflow
+    };
+
+
+    const techUsedStyle = {
+      marginTop: '10px',
+      fontWeight: 'bold',
+      textDecoration: 'underline',
+      whiteSpace: 'normal', // Allows the text to wrap
+      overflowWrap: 'break-word', // Breaks words to prevent overflow
+  };
+
+
+    return (
+      <div style={projectDisplayStyle}>
+      {!isMobileView && (
+          <FontAwesomeIcon icon={project.icon} size="2x" />
+      )}
+      <div>
+          <div>
+              <span style={projectNameStyle}>{project.name}</span>
+              <span style={{ ...projectNameStyle, marginLeft: '5px', fontSize: '0.8em', fontWeight: 'lighter' }}>
+                  {project.company}
+              </span>
+          </div>
+          <p style={projectDescriptionStyle}>{project.description}</p>
+          <p style={techUsedStyle}>{project.technologies}</p>
+      </div>
+  </div>
+    );
+  };
+
   
   const containerStyle = {
     display: 'flex',
@@ -203,11 +263,11 @@ const TerminalSection = () => {
             * fitgpt - react, python, mongodb
             * skimmer - python, rpigpio ; this is kinda illegal!
             */
-            setResultText('');
+            setResultText('section is broken on mobile, i\'ll fix this in a bit :p if ur reading this @ 4am');
             setShowProjects(true);
             setShowIcons(false);
             break;
-        case 'short-term/long-term goals':
+        case 'what i\'ve been doing':
             setResultText('research: @seoul national university, @uc santa cruz, @carnegie mellon university. finalist for CalHacks A.I. (June)');
             setShowProjects(false);
             setShowIcons(false);
@@ -275,7 +335,7 @@ const TerminalSection = () => {
         <span>for-the-recruiters</span>
       </div>
       <div className="flex justify-between" style={{ gap: '16px' }}>
-        {['my tech stack?', 'what have i made so far?', 'short-term/long-term goals'].map((option) => (
+        {['my tech stack?', 'what have i made so far?', 'what i\'ve been doing'].map((option) => (
           <button
             key={option}
             style={buttonStyle}
@@ -320,7 +380,7 @@ const TerminalSection = () => {
         {showProjects && (
           <div style={{ display: 'flex', flexWrap: 'wrap', width: '80%', margin: '0 auto' }}>
             {projects[0].map((project, index) => (
-              <ProjectDisplay key={index} project={project} />
+              <ProjectDisplay isMobileView={isMobileView} key={index} project={project} />
             ))}
           </div>
         )}

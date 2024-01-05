@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+const [isMobileView, setIsMobileView] = useState(window.innerWidth < 600);
 // ProjectDisplay component 
 const ProjectDisplay = ({ project }) => {
     const projectDisplayStyle = {
